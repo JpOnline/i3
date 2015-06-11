@@ -87,26 +87,26 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # switch to workspace
-bindsym $mod+1 workspace "Work 1"
-bindsym $mod+2 workspace "Work 2"
-bindsym $mod+3 workspace "Work 3"
-bindsym $mod+4 workspace "Music 4"
-bindsym $mod+5 workspace "Files 5"
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
 bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace "Social 7"
-bindsym $mod+8 workspace "Entreteinment 8"
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace "Work 1"        
-bindsym $mod+Shift+2 move container to workspace "Work 2"        
-bindsym $mod+Shift+3 move container to workspace "Work 3"        
-bindsym $mod+Shift+4 move container to workspace "Music 4"         
-bindsym $mod+Shift+5 move container to workspace "Files 5"         
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
 bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace "Social 7"        
-bindsym $mod+Shift+8 move container to workspace "Entreteinment 8" 
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9 
 bindsym $mod+Shift+0 move container to workspace 10
 
@@ -155,3 +155,8 @@ exec cinnamon-sound-applet
 
 # Background
 exec_always feh --randomize --bg-fill /home/jp/Documents/*
+
+# Configurating the display to 1600x900
+exec xrandr --newmode "1600x900_60.00"  118.25  1600 1696 1856 2112  900 903 908 934 -hsync +vsync
+xrandr --addmode Virtual1 "1600x900_60.00"
+xrandr --output Virtual1 --mode 1600x900_60.00
