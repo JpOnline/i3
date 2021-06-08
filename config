@@ -100,7 +100,7 @@ bindsym $mod+7 workspace number "7 Social"
 bindsym $mod+8 workspace number "8 Web"
 bindsym $mod+9 workspace number "9 Notes"
 bindsym $mod+0 workspace number 10
-bindsym $mod+p workspace number 11
+# bindsym $mod+p workspace number 11
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number 1
@@ -113,7 +113,7 @@ bindsym $mod+Shift+7 move container to workspace number "7 Social"
 bindsym $mod+Shift+8 move container to workspace number "8 Web"
 bindsym $mod+Shift+9 move container to workspace number "9 Notes"
 bindsym $mod+Shift+0 move container to workspace number 10
-bindsym $mod+Shift+p move container to workspace number 11
+# bindsym $mod+Shift+p move container to workspace number 11
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -178,7 +178,41 @@ exec_always --no-startup-id xautolock -time 5 -locker "i3lock -c 000000"
 bindsym $mod+g exec google-chrome
 
 # Use the same workspace number to go to the previous workspace
-workspace_auto_back_and_forth yes
+# workspace_auto_back_and_forth yes
 
 # Screenshot
 bindsym $mod+s exec gnome-screenshot -i
+
+# Volume +/-
+bindsym $mod+i exec amixer -D pulse sset Master 5%+
+bindsym $mod+u exec amixer -D pulse sset Master 5%-
+
+# Next/prev workspace
+bindsym $mod+n exec --no-startup-id ~/.config/i3/next-workspace.sh workspace next
+bindsym $mod+Shift+n exec --no-startup-id ~/.config/i3/next-workspace.sh move container to workspace next
+bindsym $mod+p workspace prev
+bindsym $mod+Shift+p move container to workspace prev; workspace prev
+
+# -------------------------------------------------------- #
+# In order to configure next/prev commands, uncomment the  #
+# following lines and run them in the terminal.            #
+# -------------------------------------------------------- #
+# printf $'#!/bin/bash
+#
+# inLast="$(i3-msg -t get_workspaces | tr , \'\\\\n\' | grep \'"focused":\' | cut -d : -f 2 | tail -1)"
+# command=$*
+#
+# if [[ $inLast == "true" && $command == "workspace next" ]]; then
+#   # "in Last next"
+#   i3-msg workspace $(($(i3-msg -t get_workspaces | tr , \'\\\\n\' | grep \'"num":\' | cut -d : -f 2 | sort -rn | head -1) + 1))
+# elif [[ $inLast == "true" && $command == "move container to workspace next" ]]; then
+#   # "in last move next"
+#   i3-msg move container to workspace $(($(i3-msg -t get_workspaces | tr , \'\\\\n\' | grep \'"num":\' | cut -d : -f 2 | sort -rn | head -1) + 1)); i3-msg workspace $(i3-msg -t get_workspaces | tr , \'\\\\n\' | grep \'"num":\' | cut -d : -f 2 | sort -rn | head -1)
+# elif [[ $command == "move container to workspace next" ]]; then
+#   # "move next"
+#   i3-msg move container to workspace next; i3-msg workspace next
+# else
+#   # "next"
+#   i3-msg workspace next
+# fi
+# ' > ~/.config/i3/next-workspace.sh && sudo chmod +x ~/.config/i3/next-workspace.sh
