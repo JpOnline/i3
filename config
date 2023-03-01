@@ -76,6 +76,7 @@ bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
+bindsym button3 floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
@@ -189,11 +190,22 @@ mode "extra command" {
         bindsym $mod+g mode "default"
 
         # Sleep
-        bindsym $mod+k exec systemctl suspend
+        # bindsym $mod+k exec systemctl suspend
 
         # move entire workspace to another monitor
         bindsym $mod+y move workspace to output left; mode "default"
         bindsym $mod+o move workspace to output right; mode "default"
+
+        # invert colors
+        bindsym $mod+i exec xcalib -invert -alter; mode "default"
+
+        # bindsym $mod+k exec ~/light-level.sh 50%+
+        # bindsym $mod+j exec ~/light-level.sh 50%-
+
+        # Timestamp in discord format copied in the clipboard, use with a date as 2024-12-06T10:14 or simply 10:14
+        # To create discord-timestamp.sh, run the following in the terminal: printf $'#!/bin/bash\n\ndate --date="$1" +"<t:%%s:t>" | tr -d \'\\\\n\' | xclip -selection c' > ~/d.sh && sudo chmod +x ~/d.sh
+        bindsym $mod+d exec i3-input -F 'exec ~/discord-timestamp.sh %s' -P 'Discord Time ';mode "default"
+
 }
 
 bindsym $mod+r mode "resize"
@@ -206,26 +218,29 @@ bar {
 }
 
 # set volume configuration
-exec xfce4-volumed
-exec cinnamon-sound-applet
+# exec xfce4-volumed
+# exec cinnamon-sound-applet
 
 # Background
 exec_always feh --randomize --bg-fill /home/jp/Documents/*
 
-# Configurating the display to 1600x900
+# Configurating the display
 # exec xrandr --newmode "1600x900_60.00"  118.25  1600 1696 1856 2112  900 903 908 934 -hsync +vsync
 # xrandr --addmode Virtual1 "1600x900_60.00"
 # xrandr --output Virtual1 --mode 1600x900_60.00
+# exec xrandr "-s 1680x1050" # resolution
+# exec xrandr --output "HDMI-A-0" --auto --right-of eDP # Configure second screen
 
 # Lockscreen
 # in lock-screen.sh there are only the commands: i3-msg workspace number 20; i3lock -c 000000
-exec_always --no-startup-id xautolock -time 5 -locker "exec ~/lock-screen.sh"
+exec_always --no-startup-id xautolock -time 60 -locker "exec ~/lock-screen.sh"
 
 # Use the same workspace number to go to the previous workspace
 # workspace_auto_back_and_forth yes
 
 # Screenshot
-bindsym $mod+s exec gnome-screenshot -i
+# bindsym $mod+s exec gnome-screenshot -i
+bindsym $mod+s exec flameshot gui
 
 # Volume +/-
 bindsym $mod+i exec amixer -D pulse sset Master 5%+
